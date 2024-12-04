@@ -25,6 +25,16 @@ const xmasDirections = [
   [-1, 1],
 ];
 
+/**
+ * Start searching a grid of letters for a given word given an initial position and direction.
+ *
+ * @param grid a 2x2 grid of characters
+ * @param word the word being looked for
+ * @param x position to start looking for word
+ * @param y position to start looking for word
+ * @param delta direction to look for word
+ * @returns if the word was found
+ */
 const lookForWord = (
   grid: string[][],
   word: string[],
@@ -99,12 +109,17 @@ let totalPartTwo = 0;
 
 for (let y = 0; y < characters.length; y++) {
   for (let x = 0; x < characters[y].length; x++) {
-    for (const direction of xmasDirections) {
-      if (lookForWord(characters, xmas, x, y, direction)) {
-        totalPartOne++;
+    // Part 1
+    // Avoid additional processing by avoiding the directions loop if the first letter is not X
+    if (characters[y][x] === xmas[0]) {
+      for (const direction of xmasDirections) {
+        if (lookForWord(characters, xmas, x, y, direction)) {
+          totalPartOne++;
+        }
       }
     }
 
+    // Part 2
     if (lookForXMas(characters, x, y)) {
       totalPartTwo++;
     }
